@@ -27,12 +27,15 @@ class Profile(models.Model):
         ('Female', 'Female'),
         ('Other', 'Other')
     )
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='profile'
+    )
     sex = models.CharField(max_length=20, choices=CHOICES)
     date_birth = models.DateTimeField(null=True, blank=True)
     address = models.CharField(max_length=120)
     bio = models.TextField(null=True, blank=True)
-    avatar = models.FileField(upload_to='user/avatars/', null=True, blank=True)
     city = models.CharField(max_length=120, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
 
@@ -43,15 +46,50 @@ class Profile(models.Model):
         verbose_name = "User Profile"
 
 
+class UserProfileImage(models.Model):
+    user_id = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name='profile_image'
+    )
+    avatar = models.FileField(
+        upload_to='user/avatars/',
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = "User Profile Image"
+
+
 # User Host Model
 class UserHost(models.Model):
-    user_id = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='host')
+    user_id = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='host'
+    )
     is_host = models.BooleanField(default=False)
     telephone = models.PositiveIntegerField(null=True, blank=True)
-    passport_photos = models.FileField(upload_to='user/passports/', null=True, blank=True)
 
     class Meta:
         verbose_name = "User Host"
+
+
+class UserHostPassportImage(models.Model):
+    user_id = models.ForeignKey(
+        UserHost,
+        on_delete=models.CASCADE,
+        related_name='host_passport_images'
+    )
+    passport_photos = models.FileField(
+        upload_to='user/passports/',
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = "User Host Passport Image"
 
 
 # Signal to create Profile and Host models on user creation
@@ -61,4 +99,10 @@ def create_user_profile(sender, instance, created, **kwargs):
         UserHost.objects.create(user_id=instance)
 
 
+# def create_user_host_passport_images(sender, instance, created, **kwargs):
+#     if created:
+#         UserHostPassportImage.objects.create(user_id=instance)
+
+
 post_save.connect(create_user_profile, sender=settings.AUTH_USER_MODEL)
+# post_save.connect(create_user_host_passport_images, sender=UserHost)

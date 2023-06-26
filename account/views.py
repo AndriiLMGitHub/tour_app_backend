@@ -1,11 +1,17 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import JSONParser, FormParser, MultiPartParser, FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
-from .serializers import UserSerializer, ProfileSerializer, UserHostSerializer
+from .serializers import (
+    UserSerializer,
+    ProfileSerializer,
+    UserHostSerializer,
+    UserProfileImageSerializer,
+    UserHostPassportImageSerializer
+)
 from .models import CustomUser, Profile, UserHost
 
 
@@ -33,7 +39,7 @@ def user_view(request, pk):
 
 @csrf_exempt
 @api_view(['GET', 'PUT'])
-@parser_classes([JSONParser])
+@parser_classes([JSONParser, FileUploadParser])
 @permission_classes([IsAuthenticated])
 def profile_edit_view(request, pk):
     profile = get_object_or_404(Profile, pk=pk)
@@ -43,6 +49,32 @@ def profile_edit_view(request, pk):
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
         serializer = ProfileSerializer(profile, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@api_view(['POST', ])
+@permission_classes([IsAuthenticated])
+@parser_classes([MultiPartParser, FormParser])
+def profile_image(request):
+    if request.method == 'POST':
+        serializer = UserProfileImageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@api_view(['POST', ])
+@permission_classes([IsAuthenticated])
+@parser_classes([MultiPartParser, FormParser])
+def host_image(request):
+    if request.method == 'POST':
+        serializer = UserHostPassportImageSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -62,7 +94,7 @@ def host(request):
 
 @csrf_exempt
 @api_view(['PUT', ])
-@parser_classes([JSONParser])
+@parser_classes([JSONParser, ])
 @permission_classes([IsAuthenticated])
 def host_edit(request, pk):
     host = get_object_or_404(UserHost, pk=pk)

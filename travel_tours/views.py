@@ -62,9 +62,10 @@ def tour_detail_view(request, pk):
         tour.delete()
         return Response({'message': "Deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
 
+
 @csrf_exempt
 @api_view(['POST', ])
-# @permission_classes([IsAuthenticated, ])
+@permission_classes([IsAuthenticated, ])
 @parser_classes([MultiPartParser, FormParser])
 def tour_images(request):
     serializer = TourImageSerializer(data=request.data)
@@ -73,4 +74,3 @@ def tour_images(request):
         return Response({"message": "File has been uploaded successfully"}, status=200)
     else:
         return Response({"message": "File has NOT been uploaded successfully"}, status=400)
-
