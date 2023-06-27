@@ -56,9 +56,6 @@ INSTALLED_APPS = [
 
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'https://c940-185-237-217-23.ngrok-free.app'
-]
 CORS_ALLOW_ALL_ORIGINS = True
 
 MIDDLEWARE = [
