@@ -36,6 +36,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "sex",
+            "name",
             "date_birth",
             "address",
             "bio",

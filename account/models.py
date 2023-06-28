@@ -33,6 +33,7 @@ class Profile(models.Model):
         related_name='profile'
     )
     sex = models.CharField(max_length=20, choices=CHOICES)
+    name = models.CharField(max_length=255)
     date_birth = models.DateTimeField(null=True, blank=True)
     address = models.CharField(max_length=120)
     bio = models.TextField(null=True, blank=True)
