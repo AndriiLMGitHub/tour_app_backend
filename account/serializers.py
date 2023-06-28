@@ -59,6 +59,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'email',
+            'date_joined',
             'profile',
             'tours',
             'favorites',
