@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 
     'account.apps.AccountConfigCore',
     'travel_tours.apps.TravelToursConfig',
-    # 'travel_tours_info.apps.TravelToursInfoConfig',
+    'travel_tours_info.apps.TravelToursInfoConfig',
 
 ]
 
