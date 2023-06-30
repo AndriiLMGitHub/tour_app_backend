@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from account.models import UserHost
 
 
 class City(models.Model):
@@ -21,7 +22,7 @@ class Tour(models.Model):
         ('Adventure', 'Adventure'),
         ('Solo', 'Solo'),
     )
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tours')
+    user_id = models.ForeignKey(UserHost, on_delete=models.CASCADE, related_name='tours')
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='tours')
     name = models.CharField(max_length=120)
     type = models.CharField(max_length=120, choices=TYPES)

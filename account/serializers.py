@@ -16,7 +16,9 @@ class UserHostPassportImageSerializer(serializers.ModelSerializer):
 
 
 class UserHostSerializer(serializers.ModelSerializer):
+    tours = TourSerializer(many=True)
     host_passport_images = UserHostPassportImageSerializer(many=True, read_only=True)
+
     class Meta:
         model = UserHost
         fields = (
@@ -25,6 +27,7 @@ class UserHostSerializer(serializers.ModelSerializer):
             "telephone",
             "user_id",
             "host_passport_images",
+            "tours",
         )
 
 
@@ -50,7 +53,6 @@ class ProfileSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
     comments = CommentSerializer(many=True)
-    tours = TourSerializer(many=True)
     favorites = FavoriteSerializer(many=True)
     host = UserHostSerializer()
 
@@ -61,7 +63,6 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'date_joined',
             'profile',
-            'tours',
             'favorites',
             'comments',
             'host'

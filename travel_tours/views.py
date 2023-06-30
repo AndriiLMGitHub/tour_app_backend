@@ -14,12 +14,10 @@ from .serializers import (
     TourImageSerializer
 )
 
-
 @csrf_exempt
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
-@parser_classes([JSONParser])
-def tour_view(request):
+@api_view(['GET', ])
+@parser_classes([JSONParser, ])
+def get_all_tours(request):
     """
     Get all tours and post tour.
     """
@@ -27,6 +25,13 @@ def tour_view(request):
         tours = Tour.objects.all()
         serializer = TourSerializer(tours, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(['POST', ])
+@permission_classes([IsAuthenticated, ])
+@parser_classes([JSONParser, ])
+def tour_view(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = TourSerializer(data=data)
