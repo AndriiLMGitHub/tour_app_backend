@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework_simplejwt',
 
+
     'account.apps.AccountConfigCore',
     'travel_tours.apps.TravelToursConfig',
     'travel_tours_info.apps.TravelToursInfoConfig',

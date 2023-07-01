@@ -59,8 +59,16 @@ class Comment(models.Model):
 
 
 class Favorite(models.Model):
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='favorites')
-    tours = models.ManyToManyField(Tour, related_name='favorites')
+    user_id = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='favorites'
+    )
+    tour = models.ForeignKey(
+        Tour,
+        on_delete=models.CASCADE,
+        related_name='favorites'
+    )
 
     def __str__(self):
-        return f'Tours of user {self.user_id}'
+        return f'Favorite of user {self.user_id}'
