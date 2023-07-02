@@ -91,7 +91,6 @@ def tour_images(request):
 
 @csrf_exempt
 @api_view(['GET', ])
-@permission_classes([IsAuthenticated])
 @parser_classes([JSONParser])
 def comment_all_view(request):
     comments = Comment.objects.all()
@@ -101,7 +100,6 @@ def comment_all_view(request):
 
 @csrf_exempt
 @api_view(['GET', ])
-@permission_classes([IsAuthenticated])
 @parser_classes([JSONParser])
 def comment_view(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
@@ -144,7 +142,7 @@ def city_view(request, pk):
 
 @csrf_exempt
 @api_view(['POST', ])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 @parser_classes([JSONParser])
 def add_to_favorites(request):
     data = JSONParser().parse(request)
@@ -155,10 +153,21 @@ def add_to_favorites(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@csrf_exempt
+@api_view(['DELETE', ])
+@permission_classes([IsAuthenticated])
+@parser_classes([JSONParser])
+def delete_favorite(request, pk):
+    favorite = get_object_or_404(Favorite, pk=pk)
+    if request.method == "DELETE":
+        favorite.delete()
+        return Response({"message": "Favorite has been deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
+
+
 class SearchTourAPIView(generics.ListCreateAPIView):
-    # permission_classes = [IsAuthenticated,]
-    search_fields = ['name', 'price', 'rating']
+    permission_classes = [IsAuthenticated, ]
+    search_fields = ['price', 'rating', 'created_at', 'type', ]
     queryset = Tour.objects.all()
     serializer_class = TourSerializer
 
-    filter_backends = [filters.SearchFilter,]
+    filter_backends = [filters.SearchFilter, ]

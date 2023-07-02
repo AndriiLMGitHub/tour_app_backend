@@ -12,6 +12,7 @@ urlpatterns = [
     path('tours/cities/', views.cites_all_view),
     path('tours/city/<int:pk>/', views.city_view),
     path('tours/add_to_favorites/', views.add_to_favorites),
+    path('tours/delete_favorite/<int:pk>', views.delete_favorite),
 
     path('tours/search/', views.SearchTourAPIView.as_view())
 ]

@@ -32,6 +32,8 @@ class TourSerializer(serializers.ModelSerializer):
             'name',
             'type',
             'city',
+            'description',
+            'created_at',
             'date_start',
             'date_finish',
             'languages',

@@ -28,6 +28,8 @@ class Tour(models.Model):
     type = models.CharField(max_length=120, choices=TYPES)
     date_start = models.DateTimeField()
     date_finish = models.DateTimeField()
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
     languages = models.CharField(max_length=120)
     longitude = models.CharField(max_length=120)
     latitude = models.CharField(max_length=120)
