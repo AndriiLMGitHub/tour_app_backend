@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from .models import CustomUser, UserHost, Profile, UserProfileImage, UserHostPassportImage
+from .models import CustomUser, UserHost, Profile, UserProfileImage, UserHostPassportImage, SocialUser
 from travel_tours.serializers import TourSerializer, FavoriteSerializer, CommentSerializer
+
+
+class SocialUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialUser
+        fields = "__all__"
 
 
 class UserProfileImageSerializer(serializers.ModelSerializer):
@@ -32,7 +38,8 @@ class UserHostSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    profile_image = UserProfileImageSerializer(many=True, read_only=True)
+    socials = SocialUserSerializer(many=True, read_only=True)
+    profile_images = UserProfileImageSerializer(many=True, read_only=True)
 
     class Meta:
         model = Profile
@@ -46,7 +53,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             "city",
             "is_verified",
             "user",
-            "profile_image",
+            "profile_images",
+            "socials",
         )
 
 

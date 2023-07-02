@@ -50,20 +50,29 @@ def tour_view(request):
 
 
 @csrf_exempt
-@api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
+@api_view(['GET', ])
 @parser_classes([JSONParser])
-def tour_detail_view(request, pk):
-    """
-    Retrieve, update or delete a code snippet.
-    """
+def tour_detail(request):
     tour = get_object_or_404(Tour, pk=pk)
-
     if request.method == 'GET':
         serializer = TourSerializer(tour)
+        total = 0
+        for r in serializer.data['comments']:
+            total = total + r['rating']
+        tour.total_rating = total
+        serializer = TourSerializer(tour)
+        print(tour.total_rating)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    elif request.method == 'PUT':
+
+@csrf_exempt
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+@parser_classes([JSONParser])
+def tour_detail_edit_view(request, pk):
+    tour = get_object_or_404(Tour, pk=pk)
+
+    if request.method == 'PUT':
         data = JSONParser().parse(request)
         serializer = TourSerializer(tour, data=data)
         if serializer.is_valid():
@@ -165,7 +174,6 @@ def delete_favorite(request, pk):
 
 
 class SearchTourAPIView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated, ]
     search_fields = ['price', 'rating', 'created_at', 'type', ]
     queryset = Tour.objects.all()
     serializer_class = TourSerializer

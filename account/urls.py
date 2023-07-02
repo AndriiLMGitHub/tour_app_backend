@@ -14,4 +14,5 @@ urlpatterns = [
     # One host
     path('profile/host/<int:pk>', views.host_edit),
     path('profile/host/image/upload/', views.host_image),
+
 ]

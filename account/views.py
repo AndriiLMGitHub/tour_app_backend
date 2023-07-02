@@ -10,7 +10,8 @@ from .serializers import (
     ProfileSerializer,
     UserHostSerializer,
     UserProfileImageSerializer,
-    UserHostPassportImageSerializer
+    UserHostPassportImageSerializer,
+    SocialUserSerializer,
 )
 from .models import CustomUser, Profile, UserHost
 
@@ -38,7 +39,7 @@ def user_view(request, pk):
 
 
 @csrf_exempt
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'POST'])
 @parser_classes([JSONParser, FileUploadParser])
 @permission_classes([IsAuthenticated])
 def profile_edit_view(request, pk):
@@ -52,6 +53,13 @@ def profile_edit_view(request, pk):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == "POST":
+        data = JSONParser().parse(request)
+        serializer = SocialUserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -82,7 +90,7 @@ def host_image(request):
 
 
 @csrf_exempt
-@api_view(['PUT', 'GET'])
+@api_view(['GET', ])
 @parser_classes([JSONParser])
 @permission_classes([IsAuthenticated])
 def host(request):

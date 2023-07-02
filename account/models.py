@@ -33,7 +33,7 @@ class Profile(models.Model):
         related_name='profile'
     )
     sex = models.CharField(max_length=20, choices=CHOICES)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, default="User without username")
     date_birth = models.DateTimeField(null=True, blank=True)
     address = models.CharField(max_length=120)
     bio = models.TextField(null=True, blank=True)
@@ -51,7 +51,7 @@ class UserProfileImage(models.Model):
     user_id = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
-        related_name='profile_image'
+        related_name='profile_images'
     )
     avatar = models.FileField(
         upload_to='user/avatars/',
@@ -91,6 +91,28 @@ class UserHostPassportImage(models.Model):
 
     class Meta:
         verbose_name = "User Host Passport Image"
+
+
+class SocialUser(models.Model):
+    TYPES = (
+        ('Facebook', 'Facebook'),
+        ('Instagram', 'Instagram'),
+        ('LinkedIn', 'LinkedIn'),
+        ('Youtube', 'Youtube'),
+    )
+    user_profile_id = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name='socials'
+    )
+    type = models.CharField(
+        max_length=255,
+        choices=TYPES,
+    )
+    link = models.URLField(max_length=255)
+
+    class Meta:
+        verbose_name = "User Social"
 
 
 # Signal to create Profile and Host models on user creation

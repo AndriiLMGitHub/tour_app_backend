@@ -4,7 +4,8 @@ from . import views
 urlpatterns = [
     path('tours/', views.get_all_tours),
     path('tours/create/', views.tour_view),
-    path('tours/<int:pk>', views.tour_detail_view),
+    path('tours/edit/<int:pk>/', views.tour_detail_edit_view),
+    path('tours/<int:pk>/', views.tour_detail),
     path('tours/images/upload/', views.tour_images),
     path('tours/comments/all/', views.comment_all_view),
     path('tours/comment/create/', views.comment_create),

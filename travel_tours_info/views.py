@@ -50,7 +50,9 @@ def page_detail_api_view(request, pk):
         return Response({"message": "Page has been deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
 
 
+@csrf_exempt
 @api_view(['POST', ])
+@permission_classes([IsAuthenticated, ])
 @parser_classes([MultiPartParser, FormParser])
 def page_image_upload_view(request):
     serializer = PageImageSerializer(data=request.data)
