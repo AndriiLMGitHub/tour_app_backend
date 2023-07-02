@@ -12,7 +12,7 @@ urlpatterns = [
     # All hosts
     path('profile/host/', views.host),
     # One host
-    path('profile/host/<int:pk>', views.host_edit),
+    path('profile/host/<int:pk>/', views.host_edit),
     path('profile/host/image/upload/', views.host_image),
 
 ]

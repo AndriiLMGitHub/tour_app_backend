@@ -22,7 +22,7 @@ class UserHostPassportImageSerializer(serializers.ModelSerializer):
 
 
 class UserHostSerializer(serializers.ModelSerializer):
-    tours = TourSerializer(many=True)
+    tours = TourSerializer(many=True, read_only=True)
     host_passport_images = UserHostPassportImageSerializer(many=True, read_only=True)
 
     class Meta:

@@ -90,7 +90,7 @@ def host_image(request):
 
 
 @csrf_exempt
-@api_view(['GET', ])
+@api_view(['GET', 'POST'])
 @parser_classes([JSONParser])
 @permission_classes([IsAuthenticated])
 def host(request):
@@ -98,6 +98,13 @@ def host(request):
         hosts = UserHost.objects.all()
         serializer = UserHostSerializer(hosts, many=True)
         return Response(serializer.data)
+    elif request.method == "POST":
+        data = JSONParser().parse(request)
+        serializer = UserHostSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
