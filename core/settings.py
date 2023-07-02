@@ -59,6 +59,16 @@ INSTALLED_APPS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+    "Content-Disposition",
+)
+
 MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
