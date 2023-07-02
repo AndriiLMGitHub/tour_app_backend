@@ -52,7 +52,7 @@ def tour_view(request):
 @csrf_exempt
 @api_view(['GET', ])
 @parser_classes([JSONParser])
-def tour_detail(request):
+def tour_detail(request, pk):
     tour = get_object_or_404(Tour, pk=pk)
     if request.method == 'GET':
         serializer = TourSerializer(tour)
@@ -61,7 +61,6 @@ def tour_detail(request):
             total = total + r['rating']
         tour.total_rating = total
         serializer = TourSerializer(tour)
-        print(tour.total_rating)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
