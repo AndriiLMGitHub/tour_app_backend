@@ -173,7 +173,7 @@ def delete_favorite(request, pk):
 
 
 class SearchTourAPIView(generics.ListCreateAPIView):
-    search_fields = ['price', 'total_rating', 'created_at', 'type', ]
+    search_fields = ['price', 'total_rating', 'created_at', 'type', 'name',]
     queryset = Tour.objects.all()
     serializer_class = TourSerializer
 
