@@ -11,7 +11,6 @@ from .serializers import PageSerializer, PageImageSerializer
 
 @csrf_exempt
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated, ])
 @parser_classes([JSONParser, ])
 def page_api_view(request):
     if request.method == "GET":
@@ -30,7 +29,6 @@ def page_api_view(request):
 
 @csrf_exempt
 @api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated, ])
 @parser_classes([JSONParser, ])
 def page_detail_api_view(request, pk):
     page = get_object_or_404(Page, pk=pk)
@@ -52,7 +50,6 @@ def page_detail_api_view(request, pk):
 
 @csrf_exempt
 @api_view(['POST', ])
-@permission_classes([IsAuthenticated, ])
 @parser_classes([MultiPartParser, FormParser])
 def page_image_upload_view(request):
     serializer = PageImageSerializer(data=request.data)
