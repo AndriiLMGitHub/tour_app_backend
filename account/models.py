@@ -104,12 +104,6 @@ class UserHostPassportImage(models.Model):
 
 
 class SocialUser(models.Model):
-    TYPES = (
-        ('Facebook', 'Facebook'),
-        ('Instagram', 'Instagram'),
-        ('LinkedIn', 'LinkedIn'),
-        ('Youtube', 'Youtube'),
-    )
     user_profile_id = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
@@ -124,7 +118,7 @@ class SocialUser(models.Model):
         verbose_name = "User Social"
 
     def __str__(self):
-        return f'Social {self.user_profile_id.user} - {self.type}'
+        return f'Social {self.user_profile_id.user}'
 
 
 # Signal to create Profile and Host models on user creation
