@@ -8,6 +8,7 @@ urlpatterns = [
     path('<int:pk>/', views.user_view),
     # One Profile of User
     path('profile/<int:pk>/', views.profile_edit_view),
+    path('profile/social/<int:pk>/', views.social_edit),
     path('profile/image/upload/', views.profile_image),
     # All hosts
     path('profile/host/', views.host),

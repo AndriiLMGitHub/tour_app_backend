@@ -128,10 +128,10 @@ def create_user_profile(sender, instance, created, **kwargs):
         UserHost.objects.create(user_id=instance)
 
 
-# def create_user_host_passport_images(sender, instance, created, **kwargs):
-#     if created:
-#         UserHostPassportImage.objects.create(user_id=instance)
+def create_user_social(sender, instance, created, **kwargs):
+    if created:
+        SocialUser.objects.create(user_profile_id=instance)
 
 
 post_save.connect(create_user_profile, sender=settings.AUTH_USER_MODEL)
-# post_save.connect(create_user_host_passport_images, sender=UserHost)
+post_save.connect(create_user_social, sender=Profile)

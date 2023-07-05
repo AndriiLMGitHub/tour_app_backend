@@ -13,7 +13,7 @@ from .serializers import (
     UserHostPassportImageSerializer,
     SocialUserSerializer,
 )
-from .models import CustomUser, Profile, UserHost
+from .models import CustomUser, Profile, UserHost, SocialUser
 
 
 @csrf_exempt
@@ -54,12 +54,20 @@ def profile_edit_view(request, pk):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == "POST":
+
+
+@csrf_exempt
+@api_view(['PUT', ])
+@parser_classes([JSONParser])
+@permission_classes([IsAuthenticated])
+def social_edit(request, pk):
+    social = get_object_or_404(SocialUser, pk=pk)
+    if request.method == "PUT":
         data = JSONParser().parse(request)
-        serializer = SocialUserSerializer(data=data)
+        serializer = SocialUserSerializer(social, data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
