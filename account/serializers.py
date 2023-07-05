@@ -32,6 +32,7 @@ class UserHostSerializer(serializers.ModelSerializer):
             "is_host",
             "telephone",
             "user_id",
+            "rejected",
             "host_passport_images",
             "tours",
         )
@@ -40,6 +41,7 @@ class UserHostSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     socials = SocialUserSerializer(many=True, read_only=True)
     profile_images = UserProfileImageSerializer(many=True, read_only=True)
+    name = serializers.CharField(source="user.email")
 
     class Meta:
         model = Profile

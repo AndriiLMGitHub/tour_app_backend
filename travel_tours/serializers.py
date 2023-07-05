@@ -47,13 +47,20 @@ class TourSerializer(serializers.ModelSerializer):
         )
 
 
+class CitySerializer(serializers.ModelSerializer):
+    tours = TourSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = City
+        fields = (
+            "id",
+            "city_name",
+            "city_image",
+            "tours"
+        )
+
+
 class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorite
-        fields = '__all__'
-
-
-class CitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = City
         fields = '__all__'

@@ -16,4 +16,7 @@ class PageImage(models.Model):
     page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="page_images")
     image = models.FileField(upload_to="pages/images/")
 
+    def __str__(self):
+        return f'Image - {self.page}'
+
 

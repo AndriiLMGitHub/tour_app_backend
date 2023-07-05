@@ -130,7 +130,6 @@ def comment_create(request):
 
 @csrf_exempt
 @api_view(['GET', ])
-@permission_classes([IsAuthenticated])
 @parser_classes([JSONParser])
 def cites_all_view(request):
     comments = City.objects.all()
@@ -140,7 +139,6 @@ def cites_all_view(request):
 
 @csrf_exempt
 @api_view(['GET', ])
-@permission_classes([IsAuthenticated])
 @parser_classes([JSONParser])
 def city_view(request, pk):
     city = get_object_or_404(City, pk=pk)
@@ -173,7 +171,7 @@ def delete_favorite(request, pk):
 
 
 class SearchTourAPIView(generics.ListCreateAPIView):
-    search_fields = ['price', 'total_rating', 'created_at', 'type', 'name',]
+    search_fields = ['price', 'total_rating', 'created_at', 'type', 'name', ]
     queryset = Tour.objects.all()
     serializer_class = TourSerializer
 

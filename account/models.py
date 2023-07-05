@@ -33,7 +33,7 @@ class Profile(models.Model):
         related_name='profile'
     )
     sex = models.CharField(max_length=20, choices=CHOICES)
-    name = models.CharField(max_length=255, default="User without username")
+    name = models.CharField(max_length=255)
     date_birth = models.DateTimeField(null=True, blank=True)
     address = models.CharField(max_length=120)
     bio = models.TextField(null=True, blank=True)
@@ -41,7 +41,7 @@ class Profile(models.Model):
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'User profile with email - {self.user.email}'
+        return f'User profile - {self.user.email}'
 
     class Meta:
         verbose_name = "User Profile"
@@ -59,6 +59,9 @@ class UserProfileImage(models.Model):
         blank=True
     )
 
+    def __str__(self):
+        return f'Avatar - {self.user_id.user}'
+
     class Meta:
         verbose_name = "User Profile Image"
 
@@ -71,10 +74,14 @@ class UserHost(models.Model):
         related_name='host'
     )
     is_host = models.BooleanField(default=False)
+    rejected = models.BooleanField(default=False)
     telephone = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta:
         verbose_name = "User Host"
+
+    def __str__(self):
+        return f'Host with email - {self.user_id.email}'
 
 
 class UserHostPassportImage(models.Model):
@@ -91,6 +98,9 @@ class UserHostPassportImage(models.Model):
 
     class Meta:
         verbose_name = "User Host Passport Image"
+
+    def __str__(self):
+        return f'Passpost image - {self.user_id.user_id}'
 
 
 class SocialUser(models.Model):
@@ -113,6 +123,9 @@ class SocialUser(models.Model):
 
     class Meta:
         verbose_name = "User Social"
+
+    def __str__(self):
+        return f'Social {self.user_profile_id.user} - {self.type}'
 
 
 # Signal to create Profile and Host models on user creation

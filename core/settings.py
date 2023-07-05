@@ -26,8 +26,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'novivorobischool@gmail.com'
 EMAIL_HOST_PASSWORD = 'oisbcuojrbrbssdx'
 
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -84,7 +84,9 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

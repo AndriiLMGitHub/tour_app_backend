@@ -23,7 +23,7 @@ class Tour(models.Model):
         ('Solo', 'Solo'),
     )
     user_id = models.ForeignKey(UserHost, on_delete=models.CASCADE, related_name='tours')
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='tours')
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="tours")
     name = models.CharField(max_length=120)
     type = models.CharField(max_length=120, choices=TYPES)
     date_start = models.DateTimeField()
@@ -47,7 +47,7 @@ class TourImage(models.Model):
     tour_images = models.FileField(upload_to='tours/images/', null=True, blank=True)
 
     def __str__(self):
-        return f'Image of tour {self.tour_id}'
+        return f'Image of tour {self.tour_id.name}'
 
 
 class Comment(models.Model):
@@ -58,7 +58,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Comment of {self.tour_id}'
+        return f'Comment of {self.tour_id.name}'
 
 
 class Favorite(models.Model):
