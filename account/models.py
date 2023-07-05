@@ -115,11 +115,10 @@ class SocialUser(models.Model):
         on_delete=models.CASCADE,
         related_name='socials'
     )
-    type = models.CharField(
-        max_length=255,
-        choices=TYPES,
-    )
-    link = models.URLField(max_length=255)
+    facebook = models.URLField(max_length=255)
+    instagram = models.URLField(max_length=255)
+    youtube = models.URLField(max_length=255)
+    linked_in = models.URLField(max_length=255)
 
     class Meta:
         verbose_name = "User Social"
