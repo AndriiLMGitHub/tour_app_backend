@@ -17,15 +17,20 @@ ALLOWED_HOSTS = [
     '*',
 ]
 
-
 # Email cred...
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'novivorobischool@gmail.com'
+# EMAIL_HOST_PASSWORD = 'oisbcuojrbrbssdx'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'novivorobischool@gmail.com'
-EMAIL_HOST_PASSWORD = 'oisbcuojrbrbssdx'
-
+EMAIL_HOST_USER = 'malyn.business.work@gmail.com'
+EMAIL_HOST_PASSWORD = 'udrcpsfuabufuixh'
 
 # Application definition
 INSTALLED_APPS = [
@@ -44,7 +49,6 @@ INSTALLED_APPS = [
     'djoser',
     'social_django',
     'rest_framework_simplejwt',
-
 
     'account.apps.AccountConfigCore',
     'travel_tours.apps.TravelToursConfig',
@@ -85,7 +89,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # BASE_DIR / 'templates'
+            BASE_DIR / 'templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -159,31 +163,34 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
-    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'ACTIVATION_URL': 'signup-confirm/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {},
     'TOKEN_MODEL': None,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000', ],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000',],
 }
 
 AUTH_USER_MODEL = 'account.CustomUser'
-USER_CREATE_PASSWORD_RETYPE = False
 
-SOCIAL_AUTH_FACEBOOK_KEY = ''
-SOCIAL_AUTH_FACEBOOK_SECRET = ''
+SOCIAL_AUTH_FACEBOOK_KEY = '3536162556630963'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'db79443b03a489d80c6f2237df9729f4'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'locale': 'ru_RU',
-    'fields': 'id, name, email, age_range'
+    'fields': 'id, email'
 }
+# SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.10'
 
 # Google configuration
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '290859685725-1cpni1jnf10t1ht5r9l4crnbi3figh1d.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
 ]
+
+SOCIAL_AUTH_TWITTER_KEY = 'a1RlSWFKZzRSUVpLYzF0c1VWSF86MTpjaQ'
+SOCIAL_AUTH_TWITTER_SECRET = 'hb1QxrV23ZXoDnYRmqQvrNRI9UzZW-6xcNDQfW1EjPguSY-p0m'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -198,6 +205,7 @@ REST_AUTH = {
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -215,4 +223,3 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-
