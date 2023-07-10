@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'ckeditor',
     'django.contrib.staticfiles',
-    'drf_yasg',
 
     'corsheaders',
     'rest_framework',
