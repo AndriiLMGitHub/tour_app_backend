@@ -220,7 +220,7 @@ SIMPLE_JWT = {
 }
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'tour_media',
+    'CLOUD_NAME': 'hkaq2tqem',
     'API_KEY': '891794982337244',
     'API_SECRET': 'AvZBfz6bbH1LAex1a5Ny_CLF5sU'
 }
