@@ -1,5 +1,15 @@
 from django.contrib import admin
-from .models import Tour, TourImage, Favorite, City, Comment
+from .models import TourType, Tour, TourImage, Favorite, City, Comment
+
+
+class TourTypeAdmin(admin.ModelAdmin):
+    search_fields = (
+        'type',
+    )
+    list_filter = [
+        "type",
+        "created_at",
+    ]
 
 
 # ---- Travel tours models admin ----
@@ -82,8 +92,10 @@ class CommentAdmin(admin.ModelAdmin):
     raw_id_fields = ["user_id", "tour_id"]
 
 
+admin.site.register(TourType, TourTypeAdmin)
 admin.site.register(Tour, TourAdmin)
 admin.site.register(TourImage, TourImageAdmin)
 admin.site.register(Favorite, FavoriteAdmin)
 admin.site.register(City, CityAdmin)
 admin.site.register(Comment, CommentAdmin)
+

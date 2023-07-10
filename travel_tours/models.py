@@ -3,6 +3,14 @@ from django.conf import settings
 from account.models import UserHost
 
 
+class TourType(models.Model):
+    type = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.type[:7]
+
+
 class City(models.Model):
     city_name = models.CharField(max_length=120)
     city_image = models.FileField(upload_to='city/images/')
@@ -16,16 +24,10 @@ class City(models.Model):
 
 
 class Tour(models.Model):
-    TYPES = (
-        ('Backpaking', 'Backpaking'),
-        ('Weekend', 'Weekend'),
-        ('Adventure', 'Adventure'),
-        ('Solo', 'Solo'),
-    )
     user_id = models.ForeignKey(UserHost, on_delete=models.CASCADE, related_name='tours')
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="tours")
     name = models.CharField(max_length=120)
-    type = models.CharField(max_length=120, choices=TYPES)
+    type = models.ForeignKey(TourType, on_delete=models.CASCADE, related_name="tours")
     date_start = models.DateTimeField()
     date_finish = models.DateTimeField()
     description = models.TextField()
