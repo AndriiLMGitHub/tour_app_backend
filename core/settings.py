@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'ckeditor',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
 
     'corsheaders',
     'rest_framework',
@@ -217,9 +219,15 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'tour_media',
+    'API_KEY': '891794982337244',
+    'API_SECRET': 'AvZBfz6bbH1LAex1a5Ny_CLF5sU'
+}
+
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
