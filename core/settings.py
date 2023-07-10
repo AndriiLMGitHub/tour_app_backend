@@ -160,7 +160,7 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_URL': 'reset-pass-confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'signup-confirm/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
