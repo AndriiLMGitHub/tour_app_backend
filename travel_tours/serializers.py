@@ -1,11 +1,18 @@
 from rest_framework import serializers
 from .models import (
+    TourType,
     Tour,
     TourImage,
     Favorite,
     City,
     Comment
 )
+
+
+class TourTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TourType
+        fields = '__all__'
 
 
 class TourImageSerializer(serializers.ModelSerializer):

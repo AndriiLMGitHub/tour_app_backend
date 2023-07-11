@@ -8,12 +8,14 @@ from rest_framework import status
 from rest_framework import filters
 from rest_framework import generics
 from .models import (
+    TourType,
     Tour,
     Comment,
     City,
     Favorite,
 )
 from .serializers import (
+    TourTypeSerializer,
     TourSerializer,
     TourImageSerializer,
     CommentSerializer,
@@ -171,8 +173,13 @@ def delete_favorite(request, pk):
 
 
 class SearchTourAPIView(generics.ListCreateAPIView):
-    search_fields = ['price', 'total_rating', 'created_at', 'type', 'name', ]
+    search_fields = ['price', 'total_rating', 'created_at', 'type__type', 'name', ]
     queryset = Tour.objects.all()
     serializer_class = TourSerializer
 
     filter_backends = [filters.SearchFilter, ]
+
+
+class TourTypeAPIView(generics.ListAPIView):
+    queryset = TourType.objects.all()
+    serializer_class = TourTypeSerializer

@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('tours/types/', views.TourTypeAPIView.as_view()),
     path('tours/', views.get_all_tours),
     path('tours/create/', views.tour_view),
     path('tours/edit/<int:pk>/', views.tour_detail_edit_view),
