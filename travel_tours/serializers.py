@@ -49,6 +49,7 @@ class TourSerializer(serializers.ModelSerializer):
             'address',
             'price',
             'total_rating',
+            'is_active',
             'images',
             'comments'
         )
