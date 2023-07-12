@@ -38,7 +38,7 @@ class Tour(models.Model):
     address = models.CharField(max_length=120)
     price = models.PositiveIntegerField()
     is_active = models.BooleanField(default=False)
-    total_rating = models.BigIntegerField(default=0)
+    total_rating = models.BigIntegerField(default=1)
 
     def __str__(self):
         return f'The name of tour is {self.name}'

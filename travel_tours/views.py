@@ -72,7 +72,6 @@ def tour_detail(request, pk):
 @parser_classes([JSONParser])
 def tour_detail_edit_view(request, pk):
     tour = get_object_or_404(Tour, pk=pk)
-
     if request.method == 'PUT':
         data = JSONParser().parse(request)
         serializer = TourSerializer(tour, data=data)
