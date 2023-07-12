@@ -30,7 +30,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class TourSerializer(serializers.ModelSerializer):
     images = TourImageSerializer(read_only=True, many=True)
     comments = CommentSerializer(read_only=True, many=True)
-    # type = serializers.CharField(read_only=True)
+    type = serializers.SlugRelatedField(read_only=True, slug_field="type")
 
     class Meta:
         model = Tour
