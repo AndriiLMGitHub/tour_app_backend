@@ -59,10 +59,11 @@ def tour_detail(request, pk):
     if request.method == 'GET':
         serializer = TourSerializer(tour)
         total = 0
-        for r in serializer.data['comments']:
-            total = total + r['rating']
-        tour.total_rating = total / len(serializer.data['comments'])
-        serializer = TourSerializer(tour)
+        if serializer.data['comments']:
+            for r in serializer.data['comments']:
+                total = total + r['rating']
+            tour.total_rating = total / len(serializer.data['comments'])
+            serializer = TourSerializer(tour)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
