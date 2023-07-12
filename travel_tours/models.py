@@ -56,7 +56,7 @@ class Comment(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
     tour_id = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField()
-    rating = models.PositiveIntegerField(default=1)
+    rating = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
