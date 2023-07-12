@@ -38,7 +38,7 @@ class Tour(models.Model):
     address = models.CharField(max_length=120)
     price = models.PositiveIntegerField()
     is_active = models.BooleanField(default=False)
-    total_rating = models.BigIntegerField(default=1)
+    total_rating = models.BigIntegerField(default=0)
 
     def __str__(self):
         return f'The name of tour is {self.name}'
@@ -56,7 +56,7 @@ class Comment(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
     tour_id = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField()
-    rating = models.PositiveIntegerField(default=0)
+    rating = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
