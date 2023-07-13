@@ -30,7 +30,7 @@ def users_with_profiles_view(request):
 @csrf_exempt
 @api_view(['GET'])
 @parser_classes([JSONParser])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def user_view(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)
     if request.method == 'GET':
