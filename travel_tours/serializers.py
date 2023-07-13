@@ -30,6 +30,10 @@ class CommentSerializer(serializers.ModelSerializer):
 class TourSerializer(serializers.ModelSerializer):
     images = TourImageSerializer(read_only=True, many=True)
     comments = CommentSerializer(read_only=True, many=True)
+    type = serializers.SlugRelatedField(
+        slug_field="type",
+        queryset=TourType.objects.all()
+    )
 
     class Meta:
         model = Tour
