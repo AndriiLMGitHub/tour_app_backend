@@ -37,6 +37,12 @@ def get_all_tours(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+# With pagination and query parametr limit
+class GetTours(generics.ListAPIView):
+    queryset = Tour.objects.all()
+    serializer_class = TourSerializer
+
+
 @csrf_exempt
 @api_view(['POST', ])
 @permission_classes([IsAuthenticated, ])
@@ -117,6 +123,11 @@ def comment_view(request, pk):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class CommentsAll(generics.ListAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
 @csrf_exempt
 @api_view(['POST', ])
 @permission_classes([IsAuthenticated])
@@ -137,6 +148,11 @@ def cites_all_view(request):
     comments = City.objects.all()
     serializer = CitySerializer(comments, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class CitiesAll(generics.ListAPIView):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
 
 
 @csrf_exempt
