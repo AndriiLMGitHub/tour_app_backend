@@ -12,5 +12,5 @@ class PageImageAdmin(admin.ModelAdmin):
     raw_id_fields = ["page"]
 
 
-admin.site.register(Page, PageAdmin)
-admin.site.register(PageImage, PageImageAdmin)
+# admin.site.register(Page, PageAdmin)
+# admin.site.register(PageImage, PageImageAdmin)

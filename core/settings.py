@@ -17,20 +17,12 @@ ALLOWED_HOSTS = [
     '*',
 ]
 
-# Email cred...
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'novivorobischool@gmail.com'
-# EMAIL_HOST_PASSWORD = 'oisbcuojrbrbssdx'
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'malyn.business.work@gmail.com'
-EMAIL_HOST_PASSWORD = 'udrcpsfuabufuixh'
+EMAIL_HOST_USER = 'tripstankg@gmail.com'
+EMAIL_HOST_PASSWORD = 'ngsyeiwmydwuhohf'
 
 # Application definition
 INSTALLED_APPS = [
@@ -58,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = (
     "accept",
@@ -169,29 +162,41 @@ DJOSER = {
     'SERIALIZERS': {},
     'TOKEN_MODEL': None,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000',],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': [
+        'http://localhost:8000',
+        'http://localhost:8000/',
+        'http://localhost:8000/oauth/complete/twitter/',
+    ],
 }
 
 AUTH_USER_MODEL = 'account.CustomUser'
 
-SOCIAL_AUTH_FACEBOOK_KEY = '3536162556630963'
-SOCIAL_AUTH_FACEBOOK_SECRET = 'db79443b03a489d80c6f2237df9729f4'
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# Facebook login configuration
+SOCIAL_AUTH_FACEBOOK_KEY = '821828309511766'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd6bfe838ae5a2a6e413da6bf66a3ee9e'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'locale': 'ru_RU',
     'fields': 'id, email'
 }
-# SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.10'
 
-# Google configuration
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '290859685725-1cpni1jnf10t1ht5r9l4crnbi3figh1d.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+# Google login configuration
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '495136731532-fbfbqgthiajq1neq3kall1dkcef7fvtd.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
 ]
 
-SOCIAL_AUTH_TWITTER_KEY = 'a1RlSWFKZzRSUVpLYzF0c1VWSF86MTpjaQ'
-SOCIAL_AUTH_TWITTER_SECRET = 'hb1QxrV23ZXoDnYRmqQvrNRI9UzZW-6xcNDQfW1EjPguSY-p0m'
+# Twitter login configuration
+SOCIAL_AUTH_TWITTER_KEY = 'h6Wq0O0IzJkIFkPUNARcIy3B5'
+SOCIAL_AUTH_TWITTER_SECRET = 'JubNCOFUvXpjm4HXPjgbraypY2mDpMlvtN3OqtsGL9nEYyfAop'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -203,21 +208,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 }
 
-REST_AUTH = {
-    'USE_JWT': True,
-}
-
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ('JWT', 'Bearer'),
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
 
 CLOUDINARY_STORAGE = {
