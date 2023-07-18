@@ -13,6 +13,7 @@ from .models import (
     Comment,
     City,
     Favorite,
+    Language
 )
 from .serializers import (
     TourTypeSerializer,
@@ -21,6 +22,7 @@ from .serializers import (
     CommentSerializer,
     CitySerializer,
     FavoriteSerializer,
+    LanguageSerializer
 )
 
 
@@ -189,7 +191,7 @@ def delete_favorite(request, pk):
 
 
 class SearchTourAPIView(generics.ListCreateAPIView):
-    search_fields = ['price', 'total_rating', 'created_at', 'type__type', 'name', ]
+    search_fields = ['price', 'total_rating', 'created_at', 'type__type', 'name', 'languages']
     queryset = Tour.objects.all()
     serializer_class = TourSerializer
 
@@ -199,3 +201,8 @@ class SearchTourAPIView(generics.ListCreateAPIView):
 class TourTypeAPIView(generics.ListAPIView):
     queryset = TourType.objects.all()
     serializer_class = TourTypeSerializer
+
+
+class LanguageAPIView(generics.ListAPIView):
+    queryset = Language.objects.all()
+    serializer_class = LanguageSerializer

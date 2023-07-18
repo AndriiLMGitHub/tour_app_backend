@@ -5,7 +5,8 @@ from .models import (
     TourImage,
     Favorite,
     City,
-    Comment
+    Comment,
+    Language
 )
 
 
@@ -75,4 +76,10 @@ class CitySerializer(serializers.ModelSerializer):
 class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorite
+        fields = '__all__'
+
+
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Language
         fields = '__all__'

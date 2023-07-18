@@ -58,6 +58,7 @@ class Comment(models.Model):
     text = models.TextField()
     rating = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Comment of {self.tour_id.name}'
@@ -77,3 +78,10 @@ class Favorite(models.Model):
 
     def __str__(self):
         return f'Favorite of user {self.user_id}'
+
+
+class Language(models.Model):
+    language = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.language

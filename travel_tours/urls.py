@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('tours/types/', views.TourTypeAPIView.as_view()),
+    path('tours/languages/', views.LanguageAPIView.as_view()),
+
     path('tours/', views.get_all_tours),
     path('tours/all/', views.GetTours.as_view()),
     path('tours/create/', views.tour_view),

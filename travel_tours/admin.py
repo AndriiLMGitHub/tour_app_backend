@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TourType, Tour, TourImage, Favorite, City, Comment
+from .models import TourType, Tour, TourImage, Favorite, City, Comment, Language
 
 
 class TourTypeAdmin(admin.ModelAdmin):
@@ -92,10 +92,16 @@ class CommentAdmin(admin.ModelAdmin):
     raw_id_fields = ["user_id", "tour_id"]
 
 
+class LanguageAdmin(admin.ModelAdmin):
+    search_fields = (
+        'language',
+    )
+
+
 admin.site.register(TourType, TourTypeAdmin)
 admin.site.register(Tour, TourAdmin)
 admin.site.register(TourImage, TourImageAdmin)
 admin.site.register(Favorite, FavoriteAdmin)
 admin.site.register(City, CityAdmin)
 admin.site.register(Comment, CommentAdmin)
-
+admin.site.register(Language, LanguageAdmin)
