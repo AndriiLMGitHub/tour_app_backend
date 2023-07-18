@@ -26,6 +26,7 @@ urlpatterns = [
   path('api/', include('travel_tours.urls')),
   path('api/', include('travel_tours_info.urls')),
 
+
   re_path('^.*$', TemplateView.as_view(template_name="index.html")),
   # path('', RedirectSocial.as_view())
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

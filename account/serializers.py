@@ -41,7 +41,6 @@ class UserHostSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     socials = SocialUserSerializer(many=True, read_only=True)
     profile_images = UserProfileImageSerializer(many=True, read_only=True)
-    name = serializers.CharField(source="user.email")
 
     class Meta:
         model = Profile

@@ -8,7 +8,7 @@ class TourType(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.type[:7]
+        return self.type
 
 
 class City(models.Model):
