@@ -25,7 +25,7 @@ class City(models.Model):
 
 class Tour(models.Model):
     user_id = models.ForeignKey(UserHost, on_delete=models.CASCADE, related_name='tours')
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="tours")
     name = models.CharField(max_length=120)
     type = models.ForeignKey(TourType, on_delete=models.CASCADE)
     date_start = models.DateTimeField()
