@@ -35,6 +35,10 @@ class TourSerializer(serializers.ModelSerializer):
         slug_field="type",
         queryset=TourType.objects.all()
     )
+    city = serializers.SlugRelatedField(
+        slug_field="city_name",
+        queryset=City.objects.all()
+    )
 
     class Meta:
         model = Tour
